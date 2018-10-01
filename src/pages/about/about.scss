@@ -1,3 +1,22 @@
 page-about {
+  ion-card {
+    position: relative;
+    text-align: left;
+  }
 
+  .card-title {
+    font-size: 1.5em;
+    width: 100%;
+    font-weight: bold;
+    color: #5522a5;
+  }
+
+  .card-subtitle {
+    font-size: 1em;
+    width: 100%;
+    color: #3c15a7;
+  }
+  .text-history {
+    font-style: italic;
+  }
 }

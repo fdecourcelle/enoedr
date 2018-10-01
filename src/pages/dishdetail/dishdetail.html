@@ -34,7 +34,7 @@
     </ion-row>
   </ion-card>
   <div [hidden]="dish || errMess">
-    <ion-spinner></ion-spinner>
+    <ion-spinner name="bubbles"></ion-spinner>
     <h4>Loading . . . Please Wait</h4>
   </div>
   <div *ngIf="errMess">
@@ -54,5 +54,12 @@
       </p>
     </ion-item>
   </ion-list>
-
+  <ion-fab right bottom>
+    <button ion-fab [hidden]="favorite" (click)="addToFavorites()">
+      <ion-icon name="heart-outline"></ion-icon>
+    </button>
+    <button ion-fab *ngIf="favorite">
+      <ion-icon name="heart"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
