@@ -1,6 +1,8 @@
-//import { HttpClient } from "@angular/common/http";
+import { Http } from "@angular/http";
 import { Injectable } from "@angular/core";
-
+import { Dish } from "../../shared/dish";
+import { Observable } from "rxjs/Observable";
+import { DishProvider } from "../dish/dish";
 /*
   Generated class for the FavoriteProvider provider.
 
@@ -11,13 +13,31 @@ import { Injectable } from "@angular/core";
 export class FavoriteProvider {
   favorites: Array<any>;
 
-  constructor() {
-    console.log("Hello FavoriteProvider Provider");
+  constructor(private dishservice: DishProvider, http: Http) {
     this.favorites = [];
   }
   addFavorite(id: number): boolean {
-    this.favorites.push(id);
+    if (!this.isFavorite(id)) this.favorites.push(id);
+    console.log("favorites", this.favorites);
     return true;
+  }
+  getFavorites(): Observable<Dish[]> {
+    return this.dishservice
+      .getDishes()
+      .map(dishes =>
+        dishes.filter(dish => this.favorites.some(el => el === dish.id))
+      );
+  }
+
+  deleteFavorite(id: number): Observable<Dish[]> {
+    let index = this.favorites.indexOf(id);
+    if (index >= 0) {
+      this.favorites.splice(index, 1);
+      return this.getFavorites();
+    } else {
+      console.log("Deleting non-existant favorite", id);
+      return Observable.throw("Deleting non-existant favorite" + id);
+    }
   }
 
   isFavorite(id: number): boolean {
