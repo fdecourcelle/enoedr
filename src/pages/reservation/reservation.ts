@@ -32,7 +32,7 @@ export class ReservationPage {
       guests: 2,
       smoking: false,
       dateTime: ["", Validators.required],
-      name: " "
+      name: ""
     });
   }
 
