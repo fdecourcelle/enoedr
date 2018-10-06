@@ -12,7 +12,7 @@ import { LeaderProvider } from "../../providers/leader/leader";
   templateUrl: "home.html"
 })
 export class HomePage implements OnInit {
-  dish: Dish;
+  dish: any;
   promotion: Promotion;
   leader: Leader;
   dishErrMess: string;
