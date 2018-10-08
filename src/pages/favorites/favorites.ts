@@ -11,6 +11,7 @@ import {
 import { Dish } from "../../shared/dish";
 import { FavoriteProvider } from "../../providers/favorite/favorite";
 
+
 /**
  * Generated class for the FavoritesPage page.
  *

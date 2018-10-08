@@ -70,7 +70,9 @@ export class DishdetailPage {
           handler: () => {
             let modal = this.modalCtrl.create(CommentPage);
             modal.onDidDismiss(data => {
-              this.dish.comments.push(data);
+              if (data) {
+                this.dish.comments.push(data);
+              }
             });
             modal.present();
           }

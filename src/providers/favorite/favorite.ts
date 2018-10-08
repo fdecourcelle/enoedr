@@ -1,8 +1,10 @@
 import { Http } from "@angular/http";
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { Dish } from "../../shared/dish";
 import { Observable } from "rxjs/Observable";
 import { DishProvider } from "../dish/dish";
+import { Storage } from "@ionic/storage";
+import { IfObservable } from "rxjs/observable/IfObservable";
 /*
   Generated class for the FavoriteProvider provider.
 
@@ -11,14 +13,31 @@ import { DishProvider } from "../dish/dish";
 */
 @Injectable()
 export class FavoriteProvider {
-  favorites: Array<any>;
+   favorites : Array<any>;
 
-  constructor(private dishservice: DishProvider, http: Http) {
+  constructor(
+    private dishservice: DishProvider,
+    http: Http,
+    private storage: Storage
+    
+  ) {
     this.favorites = [];
+    this.storage.get("favorites").then(favorites => {
+      if (favorites) {
+        console.log(favorites);
+        this.favorites = favorites;
+      } else console.log("favorites not defined");
+    });
   }
+  ngOnInit() {
+    // this.getFavorites();
+  }
+
+  
+
   addFavorite(id: number): boolean {
     if (!this.isFavorite(id)) this.favorites.push(id);
-    console.log("favorites", this.favorites);
+    this.storage.set("favorites", this.favorites);
     return true;
   }
   getFavorites(): Observable<Dish[]> {
@@ -33,6 +52,7 @@ export class FavoriteProvider {
     let index = this.favorites.indexOf(id);
     if (index >= 0) {
       this.favorites.splice(index, 1);
+      this.storage.set("favorites", this.favorites);
       return this.getFavorites();
     } else {
       console.log("Deleting non-existant favorite", id);
