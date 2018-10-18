@@ -15,6 +15,7 @@ export class ProcessHttpmsgProvider {
   }
   public extractData(res: Response) {
     let body = res.json();
+
     return body || {};
   }
 
@@ -22,13 +23,17 @@ export class ProcessHttpmsgProvider {
     // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
+      console.log("handel error instance of response");
       const body = error.json() || "";
       const err = body.error || JSON.stringify(body);
       errMsg = `${error.status} - ${error.statusText || ""} ${err}`;
+      console.log("handel error instance of response" + errMsg);
     } else {
+      console.log("handleerror else");
+
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
+    console.error("avant return" + errMsg);
     return Observable.throw(errMsg);
   }
 }

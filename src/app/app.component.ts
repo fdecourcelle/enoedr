@@ -10,6 +10,7 @@ import { ContactPage } from "../pages/contact/contact";
 import { FavoritesPage } from "../pages/favorites/favorites";
 import { ReservationPage } from "../pages/reservation/reservation";
 import { LoginPage } from "../pages/login/login";
+import { TimelinePage } from "../pages/timeline/timeline";
 
 @Component({
   templateUrl: "app.html"
@@ -18,7 +19,7 @@ export class MyApp {
   @ViewChild(Nav)
   nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = ContactPage;
 
   pages: Array<{ title: string; icon: string; component: any }>;
 
@@ -33,10 +34,10 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: "Home", icon: "home", component: HomePage },
-      { title: "About Us", icon: "information-circle", component: AboutPage },
+      { title: "A Propos", icon: "information-circle", component: AboutPage },
       { title: "Menu", icon: "list-box", component: MenuPage },
-      { title: "Contact", icon: "contact", component: ContactPage },
-      { title: "My Favorites", icon: "heart", component: FavoritesPage }
+      { title: "Patients", icon: "contact", component: ContactPage },
+      { title: "Mes favoris", icon: "heart", component: FavoritesPage }
     ];
   }
 

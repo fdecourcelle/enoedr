@@ -10,40 +10,54 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Contact Us</ion-title>
+    <ion-title>Recherche Patients</ion-title>
   </ion-navbar>
+  <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+  </ion-searchbar>
 
 </ion-header>
 
-
 <ion-content>
-  <ion-card>
-    <ion-card-content>
-      <div class="card-title" color="primary-dark">Location Information</div>
-      <div class="adresse">
-        <p>1096 avenue de la sainte victoire</p>
-        <p>AIX-EN-PROVENCE</p>
-      </div>
-      <p>
 
-        <ion-icon name="print"></ion-icon>
-        : 07 56 56 56
-      </p>
+  <div *ngIf="listPatient">
+    <ion-grid>
       <ion-row>
-        <ion-col>
-          <button ion-button icon-left clear small>
-            <ion-icon name="call"></ion-icon>
-            <div>Phone</div>
-          </button>
+        <ion-col col-12 col-lg-6 *ngFor="let patient of listPatient.entry">
+          <ion-card (click)="patientSelected($event, patient)">
+            <ion-item>
+
+              <ion-avatar item-start>
+                <ion-icon *ngIf="patient.resource.gender=='male'" class="card-title" name="female"></ion-icon>
+                <ion-icon *ngIf="patient.resource.gender=='female'" class="card-title" name="female"></ion-icon>
+              </ion-avatar>
+              <div class="card-title">{{patient.resource.name[0].given}} {{patient.resource.name[0].family}}</div>
+              {{patient.resource.photo[0].data}}
+              <div class="card-subtitle">Birth date : {{patient.resource.birthDate}}</div>
+            </ion-item>
+
+          </ion-card>
+          <!--
+          <div *ngIf="patient.resource.photo !== undefined">
+            <img [src]="'data:image/gif;base64,R0lGODlhEwARAPcAAAAAAAAA/+9aAO+1AP/WAP/eAP/eCP/eEP/eGP/nAP/nCP/nEP/nIf/nKf/nUv/nWv/vAP/vCP/vEP/vGP/vIf/vKf/vMf/vOf/vWv/vY//             va//vjP/3c//3lP/3nP//tf//vf////////////////////////////////////////////////////////////////////////////////////////////////             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////             /////////////////////////////////////////////////////////yH5BAEAAAEALAAAAAATABEAAAi+AAMIDDCgYMGBCBMSvMCQ4QCFCQcwDBGCA4cLDyE             GECDxAoAQHjxwyKhQAMeGIUOSJJjRpIAGDS5wCDly4AALFlYOgHlBwwOSNydM0AmzwYGjBi8IHWoTgQYORg8QIGDAwAKhESI8HIDgwQaRDI1WXXAhK9MBBzZ8/X             DxQoUFZC9IiCBh6wEHGz6IbNuwQoSpWxEgyLCXL8O/gAnylNlW6AUEBRIL7Og3KwQIiCXb9HsZQoIEUzUjNEiaNMKAAAA7'" />
+          </div>
+          -->
         </ion-col>
         <ion-col>
-          <button ion-button icon-left clear small>
-            <ion-icon name="print"></ion-icon>
-            <div>Mail</div>
-          </button>
+
         </ion-col>
       </ion-row>
-    </ion-card-content>
-  </ion-card>
+    </ion-grid>
+  </div>
+
+
+  <div [hidden]="listPatient || errMess">
+    <ion-spinner></ion-spinner>
+    <h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{ errMess }}</h4>
+  </div>
+
 
 </ion-content>
