@@ -1,0 +1,36 @@
+{
+  "$schema": "https://statics.teams.microsoft.com/sdk/v1.1/manifest/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.1",
+  "version": "0.0.4",
+  "id": "ffff6a19-664d-41b6-83bf-e5cf8516f6e6",
+  "packageName": "fr.enovacom.patientedrfde",
+  "developer": {
+    "name": "EdrTeams",
+    "websiteUrl": "http://www.enovacom.fr",
+    "privacyUrl": "https://www.teams.com/privacy",
+    "termsOfUseUrl": "https://www.teams.com/termsofuse"
+  },
+  "icons": {
+    "color": "logo.png",
+    "outline": "logo.png"
+  },
+  "name": {
+    "short": "EdrTeams fde",
+    "full": "Enovacom Teams EDR Project"
+  },
+  "description": {
+    "short": "Enovacom clinical documents explorer",
+    "full": "This application enabled searching and visualizing documents about a patient for practitioners discussions."
+  },
+  "accentColor": "#2E7AA2",
+  "staticTabs": [
+    {
+      "entityId": "com.contoso.fde.hellotab",
+      "name": "Medic Tab",
+      "contentUrl": "https://dry-sheep-21.localtunnel.me",
+      "scopes": ["team"]
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": ["*.localtunnel.me", "outlook.office.com"]
+}

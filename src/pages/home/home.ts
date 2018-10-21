@@ -6,6 +6,7 @@ import { Promotion } from "../../shared/promotion";
 import { PromotionProvider } from "../../providers/promotion/promotion";
 import { Leader } from "../../shared/leader";
 import { LeaderProvider } from "../../providers/leader/leader";
+import { EmailComposer } from "@ionic-native/email-composer";
 
 @Component({
   selector: "page-home",
@@ -24,6 +25,7 @@ export class HomePage implements OnInit {
     private dishservice: DishProvider,
     private promotionservice: PromotionProvider,
     private leaderservice: LeaderProvider,
+    private emailComposer: EmailComposer,
     @Inject("BaseURL") private BaseURL
   ) {}
 
@@ -46,5 +48,16 @@ export class HomePage implements OnInit {
         leader => (this.leader = leader),
         errmess => (this.leaderErrMess = <any>errmess)
       );
+  }
+  sendEmail() {
+    let email = {
+      to: "confusion@food.net",
+      subject: "[ConFusion]: Query",
+      body: "Dear Sir/Madam:",
+      isHtml: true
+    };
+
+    // Send a text message using default options
+    this.emailComposer.open(email);
   }
 }
